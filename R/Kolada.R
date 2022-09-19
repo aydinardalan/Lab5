@@ -23,3 +23,18 @@ Municipalities = function() {
   api_call <- httr::GET(get_req_url("municipality"))
   result<- respond(api_call)
   return(result)}
+
+# KPIs
+Kpis = function() {
+  api_call <- httr::GET(get_req_url("kpi_groups"))
+  result<- respond(api_call)
+  return(result)
+  
+  df_kpi = data.frame(member_id = integer(), member_title = character())
+  # Extract required data
+  for (i in 1:nrow(result)) {
+    group_kpi = result[i, 2][[1]]
+    df_kpi = rbind(df_kpi, group_kpi)
+  }
+  return(df_kpi)
+}
