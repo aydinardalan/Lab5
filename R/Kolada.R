@@ -38,3 +38,32 @@ Kpis = function() {
   }
   return(df_kpi)
 }
+
+# Fetch By Municipality
+fetchByMunicipality = function(municipality, year){
+  if (length(municipality) != 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
+  if (!is.numeric(year) | !is.vector(year)) stop("year must be a numeric vector")
+  
+  api_call <- httr::GET(get_req_url("data/municipality/", municipality,"/year/",paste(year,collapse=",")))
+  result<- respond(api_call)
+  return(result)
+}
+
+# Fetch By KPI
+fetchByKpi = function(kpi, municipality , year = c()) {
+  
+  if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")
+  if (length(kpi) == 0) stop("kpi contains no entries")
+  if (!is.list(kpi)) stop("kpi must be a list")
+  if (!is.vector(year)) stop("year is not a vector")
+  
+  webCall <- get_req_url("data/kpi/",paste(kpi,collapse=","),"/municipality/", municipality)
+  
+  if (length(year) > 0) {
+    webCall <- base::paste0(webCall,"/year/",year)
+  }
+  
+  api_call <- httr::GET(webCall)
+  result<- respond(api_call)
+  return(result)
+}
