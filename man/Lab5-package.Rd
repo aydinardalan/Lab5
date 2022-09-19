@@ -6,10 +6,10 @@
 \alias{Lab5-package}
 \title{Lab5: What the Package Does (One Line, Title Case)}
 \description{
-What the package does (one paragraph).
+This package is using Kolada API in JSON format, the package httr in used for the HTTP communication and jsonlite for mapping JSON data to data.frames.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Aydin Ardalan \email{aydin.ardalan@gmail.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
 
 }
 \keyword{internal}

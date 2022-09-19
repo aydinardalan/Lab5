@@ -1,10 +1,10 @@
 Package: Lab5
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Aydin", "Ardalan", , "aydin.ardalan@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package is using Kolada API in JSON format, the package httr in used for the HTTP communication and jsonlite for mapping JSON data to data.frames.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -12,4 +12,4 @@ RoxygenNote: 7.2.1
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Imports: methods, jsonlite
+Imports: methods, jsonlite, httr

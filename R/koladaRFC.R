@@ -5,18 +5,17 @@
 #' @field municipality numeric. Municipality 
 #' @field year vector. Year
 #' @field kpi list. key performance indicator (KPI)
-#' @import methods
-#' @import jsonlite
+#' @import methods jsonlite httr
 #' @return
 #' @export kolada
-#'
 #' @examples
 kolada = setRefClass("kolada",
                      fields = list(result="list",
                                    root_url = "character",
                                    municipality="numeric",
                                    year="vector",
-                                   kpi="list"),
+                                   kpi="list",
+                                   Municipalities="list"),
                      
                      methods = list(
                        initialize <- function(kpi, municipality, year = c()){
@@ -31,13 +30,13 @@ kolada = setRefClass("kolada",
                          
                          # Municipalities
                          Municipalities <- function() {
-                           api_call <- GET(get_req_url("municipality"))
+                           api_call <- httr::GET(get_req_url("municipality"))
                            result<- respond(api_call)
                            return(result)}
                          
                          # KIPs
                          Kpis <- function() {
-                           api_call <- GET(get_req_url("kpi_groups"))
+                           api_call <- httr::GET(get_req_url("kpi_groups"))
                            result<- respond(api_call)
                            
                            df_kpi = data.frame(member_id = integer(), member_title = character())
@@ -54,7 +53,7 @@ kolada = setRefClass("kolada",
                            if (length(municipality) != 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
                            if (!is.numeric(year) | !is.vector(year)) stop("year must be a numeric vector")
                            
-                           api_call <- GET(get_req_url("data/municipality/", municipality,"/year/",paste(year,collapse=",")))
+                           api_call <- httr::GET(get_req_url("data/municipality/", municipality,"/year/",paste(year,collapse=",")))
                            result<- respond(api_call)
                            return(result)
                          }
@@ -73,7 +72,7 @@ kolada = setRefClass("kolada",
                              webCall <- base::paste0(webCall,"/year/",year)
                            }
                            
-                           api_call <- GET(webCall)
+                           api_call <- httr::GET(webCall)
                            result<- respond(api_call)
                            return(result)
                          }
