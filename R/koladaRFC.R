@@ -5,6 +5,7 @@
 #' @field municipality numeric. Municipality 
 #' @field year vector. Year
 #' @field kpi list. key performance indicator (KPI)
+#' @field kpis fetched kpis from server
 #' @import methods jsonlite httr
 #' @return
 #' @export kolada

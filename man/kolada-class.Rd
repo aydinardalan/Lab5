@@ -20,6 +20,8 @@ Kolada
 \item{\code{year}}{vector. Year}
 
 \item{\code{kpi}}{list. key performance indicator (KPI)}
+
+\item{\code{kpis}}{fetched kpis from server}
 }}
 
 

@@ -39,11 +39,16 @@ Kpis = function() {
 }
 
 # Fetch By Municipality
-fetchByMunicipality = function(municipality, year){
+fetchByMunicipality = function(municipality, year=c()){
   if (length(municipality) != 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
   if (!is.numeric(year) | !is.vector(year)) stop("year must be a numeric vector")
+  webCall <- get_req_url("data/municipality/", municipality)
+  if (length(year) > 0) {
+    webCall <- base::paste0(webCall,"/year/",paste(year,collapse=","))
+  }
   
-  api_call <- httr::GET(get_req_url("data/municipality/", municipality,"/year/",paste(year,collapse=",")))
+  api_call <- httr::GET(webCall)
+  
   result<- respond(api_call)
   return(result)
 }
@@ -59,7 +64,7 @@ fetchByKpi = function(kpi, municipality , year = c()) {
   webCall <- get_req_url("data/kpi/",paste(kpi,collapse=","),"/municipality/", municipality)
   
   if (length(year) > 0) {
-    webCall <- base::paste0(webCall,"/year/",year)
+    webCall <- base::paste0(webCall,"/year/",paste(year,collapse=","))
   }
   
   api_call <- httr::GET(webCall)
