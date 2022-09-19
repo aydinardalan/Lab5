@@ -1,6 +1,5 @@
 # Basic Data
 root_url <- "http://api.kolada.se/v2/"
-library(httr)
 
 get_req_url = function(...){
   elements = list(...)
@@ -20,13 +19,13 @@ respond <- function(api_call) {
 
 # Municipalities
 Municipalities = function() {
-  api_call <- httr::GET(get_req_url("municipality"))
+  api_call <- GET(get_req_url("municipality"))
   result<- respond(api_call)
   return(result)}
 
 # KPIs
 Kpis = function() {
-  api_call <- httr::GET(get_req_url("kpi_groups"))
+  api_call <- GET(get_req_url("kpi_groups"))
   result<- respond(api_call)
   return(result)
   
@@ -44,7 +43,7 @@ fetchByMunicipality = function(municipality, year){
   if (length(municipality) != 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
   if (!is.numeric(year) | !is.vector(year)) stop("year must be a numeric vector")
   
-  api_call <- httr::GET(get_req_url("data/municipality/", municipality,"/year/",paste(year,collapse=",")))
+  api_call <- GET(get_req_url("data/municipality/", municipality,"/year/",paste(year,collapse=",")))
   result<- respond(api_call)
   return(result)
 }
@@ -63,7 +62,7 @@ fetchByKpi = function(kpi, municipality , year = c()) {
     webCall <- base::paste0(webCall,"/year/",year)
   }
   
-  api_call <- httr::GET(webCall)
+  api_call <- GET(webCall)
   result<- respond(api_call)
   return(result)
 }
