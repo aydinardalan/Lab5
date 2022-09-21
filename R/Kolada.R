@@ -1,6 +1,7 @@
-# Basic Data
+library(httr)
 root_url <- "http://api.kolada.se/v2/"
 
+# URL Generator
 get_req_url = function(...){
   elements = list(...)
   return(paste(c(root_url, elements), collapse=""))
@@ -18,56 +19,34 @@ respond <- function(api_call) {
 }
 
 # Municipalities
-Municipalities = function() {
-  api_call <- httr::GET(get_req_url("municipality"))
+Municipalities = function(name=NULL, BYgroups=FALSE) {
+  webCall <- ifelse(is.null(name), get_req_url("municipality"),
+                    (ifelse(BYgroups==FALSE, get_req_url("municipality?title=",name), get_req_url("ou?municipality=",name))))
+  api_call <- httr::GET(webCall)
   result<- respond(api_call)
-  return(result)}
+  return(result)
+}
 
 # KPIs
-Kpis = function() {
-  api_call <- httr::GET(get_req_url("kpi_groups"))
-  result<- respond(api_call)
-  return(result)
-  
-  df_kpi = data.frame(member_id = integer(), member_title = character())
-  # Extract required data
-  for (i in 1:nrow(result)) {
-    group_kpi = result[i, 2][[1]]
-    df_kpi = rbind(df_kpi, group_kpi)
-  }
-  return(df_kpi)
-}
-
-# Fetch By Municipality
-fetchByMunicipality = function(municipality, year=c()){
-  if (length(municipality) != 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
-  if (!is.numeric(year) | !is.vector(year)) stop("year must be a numeric vector")
-  webCall <- get_req_url("data/municipality/", municipality)
-  if (length(year) > 0) {
-    webCall <- base::paste0(webCall,"/year/",paste(year,collapse=","))
-  }
-  
+Kpis = function(name=NULL, KPIgroups=FALSE) {
+  webCall <- ifelse(is.null(name), get_req_url("kpi_groups"),
+                    (ifelse(KPIgroups==FALSE, get_req_url("kpi?title=",name), get_req_url("kpi_groups?title=",name))))
   api_call <- httr::GET(webCall)
-  
   result<- respond(api_call)
   return(result)
 }
 
-# Fetch By KPI
-fetchByKpi = function(kpi, municipality , year = c()) {
-  
-  if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")
-  if (length(kpi) == 0) stop("kpi contains no entries")
-  if (!is.list(kpi)) stop("kpi must be a list")
-  if (!is.vector(year)) stop("year is not a vector")
-  
-  webCall <- get_req_url("data/kpi/",paste(kpi,collapse=","),"/municipality/", municipality)
-  
-  if (length(year) > 0) {
-    webCall <- base::paste0(webCall,"/year/",paste(year,collapse=","))
-  }
-  
-  api_call <- httr::GET(webCall)
+# Advanced Search
+advancedSearch = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
+  params = list(kpi=as.list(as.character(kpi_list)),municipality=as.list(as.character(municipality_list)),year=as.list(as.character(year_list)))
+  params[sapply(params, is.null)] = NULL
+  stopifnot(length(params)>1)
+  #Translate R term list into api term list
+  search_terms = sapply(params, function(x) paste(x,collapse=","))
+  #Build path from search terms
+  path = paste(lapply(names(search_terms), function(x) paste(x,search_terms[x], sep="/"))
+               ,collapse = "/")
+  api_call <- httr::GET(get_req_url("data/",path))
   result<- respond(api_call)
   return(result)
 }
