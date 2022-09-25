@@ -19,6 +19,11 @@ respond <- function(api_call) {
 }
 
 # Municipalities
+#Municipalities("Linköping") :
+#http://api.kolada.se/v2/municipality?title=Linköping
+
+#Municipalities("0580", BYgroups=TRUE) :
+#http://api.kolada.se/v2/ou?municipality=0580
 Municipalities = function(name=NULL, BYgroups=FALSE) {
   webCall <- ifelse(is.null(name), get_req_url("municipality"),
                     (ifelse(BYgroups==FALSE, get_req_url("municipality?title=",name), get_req_url("ou?municipality=",name))))
@@ -37,6 +42,7 @@ Kpis = function(name=NULL, KPIgroups=FALSE) {
 }
 
 # Advanced Search
+# You can search for specific kpi code, municipality code and year
 advancedSearch = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
   params = list(kpi=as.list(as.character(kpi_list)),municipality=as.list(as.character(municipality_list)),year=as.list(as.character(year_list)))
   params[sapply(params, is.null)] = NULL
