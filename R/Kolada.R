@@ -19,11 +19,8 @@ respond <- function(api_call) {
 }
 
 # Municipalities
-#Municipalities("Linköping") :
-#http://api.kolada.se/v2/municipality?title=Linköping
-
-#Municipalities("0580", BYgroups=TRUE) :
-#http://api.kolada.se/v2/ou?municipality=0580
+#Municipalities("Linköping") : #http://api.kolada.se/v2/municipality?title=Linköping
+#Municipalities("0580", BYgroups=TRUE) : #http://api.kolada.se/v2/ou?municipality=0580
 Municipalities = function(name=NULL, BYgroups=FALSE) {
   webCall <- ifelse(is.null(name), get_req_url("municipality"),
                     (ifelse(BYgroups==FALSE, get_req_url("municipality?title=",name), get_req_url("ou?municipality=",name))))
@@ -33,9 +30,11 @@ Municipalities = function(name=NULL, BYgroups=FALSE) {
 }
 
 # KPIs
-Kpis = function(name=NULL, KPIgroups=FALSE) {
+#Kpis("kvinnofridskränkning") : http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
+#Kpis("kostnad", BYgroups=TRUE): http://api.kolada.se/v2/kpi_groups?title=kostnad
+Kpis = function(name=NULL, BYgroups=FALSE) {
   webCall <- ifelse(is.null(name), get_req_url("kpi_groups"),
-                    (ifelse(KPIgroups==FALSE, get_req_url("kpi?title=",name), get_req_url("kpi_groups?title=",name))))
+                    (ifelse(BYgroups==FALSE, get_req_url("kpi?title=",name), get_req_url("kpi_groups?title=",name))))
   api_call <- httr::GET(webCall)
   result<- respond(api_call)
   return(result)
