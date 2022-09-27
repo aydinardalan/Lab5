@@ -18,9 +18,9 @@ respond <- function(api_call) {
   }
 }
 
-# Municipalities
-#Municipalities("Linköping") : #http://api.kolada.se/v2/municipality?title=Linköping
-#Municipalities("0580", BYgroups=TRUE) : #http://api.kolada.se/v2/ou?municipality=0580
+# Municipalities (specific Municipalit or Municipalit groups)
+# Municipalities("Linköping") : #http://api.kolada.se/v2/municipality?title=Linköping
+# Municipalities("0580", BYgroups=TRUE) : #http://api.kolada.se/v2/ou?municipality=0580
 Municipalities = function(name=NULL, BYgroups=FALSE) {
   webCall <- ifelse(is.null(name), get_req_url("municipality"),
                     (ifelse(BYgroups==FALSE, get_req_url("municipality?title=",name), get_req_url("ou?municipality=",name))))
@@ -29,9 +29,9 @@ Municipalities = function(name=NULL, BYgroups=FALSE) {
   return(result)
 }
 
-# KPIs
-#Kpis("kvinnofridskränkning") : http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
-#Kpis("kostnad", BYgroups=TRUE): http://api.kolada.se/v2/kpi_groups?title=kostnad
+# KPIs (specific KPI or kPI groups)
+# Kpis("kvinnofridskränkning") : http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
+# Kpis("kostnad", BYgroups=TRUE): http://api.kolada.se/v2/kpi_groups?title=kostnad
 Kpis = function(name=NULL, BYgroups=FALSE) {
   webCall <- ifelse(is.null(name), get_req_url("kpi_groups"),
                     (ifelse(BYgroups==FALSE, get_req_url("kpi?title=",name), get_req_url("kpi_groups?title=",name))))
@@ -40,8 +40,7 @@ Kpis = function(name=NULL, BYgroups=FALSE) {
   return(result)
 }
 
-# Advanced Search
-# You can search for specific kpi code, municipality code and year
+# Advanced Search (Search by specific KPI code, Municipality code or Year)
 advancedSearch = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
   params = list(kpi=as.list(as.character(kpi_list)),municipality=as.list(as.character(municipality_list)),year=as.list(as.character(year_list)))
   params[sapply(params, is.null)] = NULL
