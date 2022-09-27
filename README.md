@@ -6,7 +6,17 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of Lab5 is to …
+Repository for the course Advanced Programming in R at Linköping
+University. Assignment 5.
+
+We are going to use the Kolada API using JSON, the API has a
+documentation and follows the REST principle. The documentation can be
+found here.
+
+A Tutorial how to consume a REST-API in R can be found here.
+
+The packages needed are httr for the HTTP communication and jsonlite for
+mapping JSON data to data.frames.
 
 ## Installation
 

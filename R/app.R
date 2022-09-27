@@ -1,4 +1,7 @@
 library(shiny)
+#' @import graphics
+#' @import shiny
+
 ui <- fluidPage(
   
   # App title ----
@@ -7,7 +10,7 @@ ui <- fluidPage(
     sidebarPanel(
       
       selectInput("state", "Choose a state:",
-                  list("Malmö","Göteborg", "Linköping", "Norrköping", "Lund")
+                  list("Falun", "Aneby", "Halmstad", "Dorotea", "Lund")
       ),
       
     ),
@@ -52,4 +55,5 @@ server <- function(input, output) {
 #' @export
 #'
 # MyShiny = function(){shinyApp(ui = ui, server = server)}
-shinyApp(ui = ui, server = server)
+visualize_kolada= shinyApp(ui = ui, server = server)
+
