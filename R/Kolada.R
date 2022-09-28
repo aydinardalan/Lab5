@@ -30,36 +30,68 @@ respond <- function(api_call) {
   }
 }
 
-#' Municipalities("Linköping") : http://api.kolada.se/v2/municipality?title=Linköping
-#' Municipalities("0580", BYgroups=TRUE) : http://api.kolada.se/v2/ou?municipality=0580
+#' Municipality
 #'
-#' @param name The name of the municipality we want to access
-#' @param BYgroups For municipality group search
+#' @param name  The municipality's name we want to access.
 #'
-#' @return Specific Municipality or Municipality groups
+#' @return list of all municipalities.
 #' @export
+#' @example Municipality("Linköping")
 
-Municipalities = function(name=NULL, BYgroups=FALSE) {
-  webCall <- ifelse(is.null(name), get_req_url("municipality"),
-                    (ifelse(BYgroups==FALSE, get_req_url("municipality?title=",name), get_req_url("ou?municipality=",name))))
-  api_call <- httr::GET(webCall)
+Municipality = function(name) {
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE)) # checking if a string is in another string
+  api_call <- httr::GET(get_req_url("municipality?title=",name))
   result<- respond(api_call)
   return(result)
 }
 
-#' Kpis("kvinnofridskränkning") : http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
-# Kpis("kostnad", BYgroups=TRUE): http://api.kolada.se/v2/kpi_groups?title=kostnad
-
-#' @param name The name of the kpi
-#' @param BYgroups For KPI group search
+#' Municipality Groups (Get a municipality's organizational units)
 #'
-#' @return specific KPI or kPI groups
+#' @param name The name/code id of the municipality's organizational.
+#'
+#' @return list of all organizational units of a municipality.
+#' @export
+Municipality_groups
+Municipality_groups <- function(name) {
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  api_call <- httr::GET(get_req_url("ou?municipality=",name))
+  result<- respond(api_call)
+  return(result)
+}
+
+#' Get KPI
+#'
+#' @param name The KPI's name.
+#'
+#' @returnid and description of a specific KPI
 #' @export
 
-Kpis = function(name=NULL, BYgroups=FALSE) {
-  webCall <- ifelse(is.null(name), get_req_url("kpi_groups"),
-                    (ifelse(BYgroups==FALSE, get_req_url("kpi?title=",name), get_req_url("kpi_groups?title=",name))))
-  api_call <- httr::GET(webCall)
+kpi = function(name){
+  #http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
+  
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  api_call <- httr::GET(get_req_url("kpi?title=",name))
+  result<- respond(api_call)
+  return(result)
+}
+
+#' Get KPI groups
+#'
+#' @param name The group's name.
+#'
+#' @return information about a specific kpi group as a list.
+#' @export
+
+kpi_groups = function(name){
+  #http://api.kolada.se/v2/kpi_groups?title=kostnad
+  
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  
+  api_call <- httr::GET(get_req_url("kpi_groups?title=",name))
   result<- respond(api_call)
   return(result)
 }
