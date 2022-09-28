@@ -1,5 +1,5 @@
 library(httr)
-library(shiny)
+library(jsonlite)
 root_url <- "http://api.kolada.se/v2/"
 
 #' URL Generator
@@ -52,7 +52,8 @@ Municipality = function(name) {
 #'
 #' @return list of all organizational units of a municipality.
 #' @export
-Municipality_groups
+#' @example Municipality_groups("1280")
+
 Municipality_groups <- function(name) {
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
@@ -67,10 +68,9 @@ Municipality_groups <- function(name) {
 #'
 #' @returnid and description of a specific KPI
 #' @export
+#' @example kpi("kvinnofridskränkning")
 
 kpi = function(name){
-  #http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
-  
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   api_call <- httr::GET(get_req_url("kpi?title=",name))
@@ -84,10 +84,9 @@ kpi = function(name){
 #'
 #' @return information about a specific kpi group as a list.
 #' @export
+#' @example kpi_groups("kostnad")
 
 kpi_groups = function(name){
-  #http://api.kolada.se/v2/kpi_groups?title=kostnad
-  
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   

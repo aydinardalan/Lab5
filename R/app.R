@@ -23,7 +23,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   reactive_data = reactive({
-    municipality_id = Municipalities(input$state)$id
+    municipality_id = Municipality(input$state)$id
     
     search = advancedSearch(kpi_list=list("N07908"),
                             municipality_list=list(municipality_id),
