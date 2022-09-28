@@ -4,6 +4,8 @@
 # Lab5
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/aydinardalan/Lab5/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aydinardalan/Lab5/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Repository for the course Advanced Programming in R at Linköping

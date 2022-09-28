@@ -57,7 +57,7 @@ Municipality = function(name) {
 Municipality_groups <- function(name) {
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
-  api_call <- httr::GET(get_req_url("ou?municipality=",name))
+  api_call <- httr::GET(get_req_url("municipality?ou=",name))
   result<- respond(api_call)
   return(result)
 }
@@ -104,9 +104,10 @@ kpi_groups = function(name){
 #' @export
 
 advancedSearch = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
-  params = list(kpi=as.list(as.character(kpi_list)),municipality=as.list(as.character(municipality_list)),year=as.list(as.character(year_list)))
+  params = list(kpi=kpi_list,municipality=municipality_list, year=year_list)
   params[sapply(params, is.null)] = NULL
   stopifnot(length(params)>1)
+  sapply(params, function(x) stopifnot(is.list(x)))
   #Translate R term list into api term list
   search_terms = sapply(params, function(x) paste(x,collapse=","))
   #Build path from search terms
