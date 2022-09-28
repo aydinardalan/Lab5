@@ -1,4 +1,8 @@
 ---
+title: "Kolada's API"
+author: "Aydin Ardalan , Seyed Mehdi Mir Shojaei"
+github_user_names: "aydinardalan , seymi176"
+liuid: "aydar442 , seymi176"
 output: github_document
 ---
 
@@ -41,7 +45,11 @@ devtools::install_github("aydinardalan/Lab5")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r , eval = T}
 library(Lab5)
-## basic example code
+Municipality("lund")
+head(Municipality_groups("1280"))
+kpi("kvinnofridskränkning")
+kpi_groups("kostnad")
+advancedSearch(kpi_list="N07402",municipality_list="1281",year_list=2021)
 ```
