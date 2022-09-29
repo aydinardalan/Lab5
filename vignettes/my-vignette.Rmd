@@ -15,10 +15,55 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#library(Lab5)
+library(Lab5)
 ```
 
 
 ## Package Introduction
 
-This package enables the user to connect to **Kolada API** in order to collect required information through Kolada database that contains key indicators regarding the Swedish municipalities. 
+This package enables the user to connect to **Kolada API** in order to collect required information from Kolada database that contains key indicators regarding the Swedish municipalities. Data is available through below address:
+
+"http://api.kolada.se/v2/"
+
+Two packages *httr* and *jsonlite* are utilized for fetching data and converting it to a readable format. Several functions are also defined for extracting, organizing and showing the data. Below, are some sample output of the functions.
+
+
+**Municipality Function**
+
+Takes the municipality name as input and retrieve its *id* and *type*:
+
+```{r}
+Municipality("lund")
+```
+
+**Municipality_groups Function** 
+
+Shows all available municipalities along with their id and type information.
+
+```{r}
+head((Municipality_groups("1281")), 10)
+```
+
+
+**Kpi Function** 
+
+Takes a subject as an argument and shows related *KPI* (Key Performance Indicator).
+
+```{r}
+kpi("kvinnofridskränkning")
+```
+
+**kpi_groups Function** 
+
+Shows information and available data of a specific kpi group as a list.
+
+```{r}
+kpi_groups("kostnad")
+```
+
+```{r}
+advancedSearch(kpi_list=list("N07402"),municipality_list=list("1281"),year_list=list(2021))
+```
+
+
+
