@@ -4,7 +4,7 @@
 \name{Lab5-package}
 \alias{Lab5}
 \alias{Lab5-package}
-\title{Lab5: What the Package Does (One Line, Title Case)}
+\title{Lab5: Shiny web application}
 \description{
 This package is using Kolada API in JSON format, the package httr in used for the HTTP communication and jsonlite for mapping JSON data to data.frames.
 }

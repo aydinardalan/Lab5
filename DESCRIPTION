@@ -1,5 +1,5 @@
 Package: Lab5
-Title: What the Package Does (One Line, Title Case)
+Title: Shiny web application
 Version: 1.0
 Authors@R: 
     person("Aydin", "Ardalan", , "aydin.ardalan@gmail.com", role = c("aut", "cre"),
