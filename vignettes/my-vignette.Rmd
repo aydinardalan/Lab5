@@ -1,0 +1,24 @@
+---
+title: "Package For Connecting To Kolada API"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package For Connecting To Kolada API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(Lab5)
+```
+
+
+## Package Introduction
+
+This package enables the user to connect to **Kolada API** in order to collect required information through Kolada database that contains key indicators regarding the Swedish municipalities. 
