@@ -51,5 +51,5 @@ Municipality("lund")
 head(Municipality_groups("1280"))
 kpi("kvinnofridskränkning")
 kpi_groups("kostnad")
-advancedSearch(kpi_list="N07402",municipality_list="1281",year_list=2021)
+advancedSearch(kpi_list=list("N07402"),municipality_list=list("1281"),year_list=list(2021))
 ```

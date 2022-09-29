@@ -21,7 +21,6 @@ ui <- fluidPage(
   )
 )
 server <- function(input, output) {
-  
   reactive_data = reactive({
     municipality_id = as.list(Municipality(input$state)$id)
     

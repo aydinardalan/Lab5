@@ -39,19 +39,17 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(Lab5)
-#> Warning: replacing previous import 'jsonlite::validate' by 'shiny::validate'
-#> when loading 'Lab5'
 Municipality("lund")
 #>     id title type
 #> 1 1281  Lund    K
 head(Municipality_groups("1280"))
-#>               id municipality                     title
-#> 1 V11E1280128053         1280 AL- SALAMAH SPRÅKFÖRSKOLA
-#> 2 V11E1280128054         1280           ALMENS FÖRSKOLA
-#> 3 V11E1280128055         1280       ALMGÅRDENS FÖRSKOLA
-#> 4 V11E1280128056         1280   ALMVIKSGÅRDENS FÖRSKOLA
-#> 5 V11E1280128057         1280        ALMÄNGENS FÖRSKOLA
-#> 6 V11E1280128058         1280        ANNELUNDS FÖRSKOLA
+#>     id    title type
+#> 1 1440      Ale    K
+#> 2 1489 Alingsås    K
+#> 3 0764  Alvesta    K
+#> 4 0604    Aneby    K
+#> 5 1984   Arboga    K
+#> 6 2506 Arjeplog    K
 kpi("kvinnofridskränkning")
 #>   auspices
 #> 1        X
@@ -78,7 +76,7 @@ kpi_groups("kostnad")
 #> 1           Nettokostnadsavvikelse
 #> 2 Kostnader för olika verksamheter
 #> 3             Verksamhetskostnader
-advancedSearch(kpi_list="N07402",municipality_list="1281",year_list=2021)
+advancedSearch(kpi_list=list("N07402"),municipality_list=list("1281"),year_list=list(2021))
 #>      kpi municipality period          values
 #> 1 N07402         1281   2021 1, T, , 6.28061
 ```
