@@ -61,6 +61,10 @@ Shows information and available data of a specific kpi group as a list.
 kpi_groups("kostnad")
 ```
 
+**advancedSearch Function** 
+
+Takes specific KPI code, municipality code or year and shows related information of the KPI.
+
 ```{r}
 advancedSearch(kpi_list=list("N07402"),municipality_list=list("1281"),year_list=list(2021))
 ```
