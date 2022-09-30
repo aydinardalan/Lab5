@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(Lab5)
-```
-
 
 ## Package Introduction
 
@@ -27,21 +23,24 @@ This package enables the user to connect to **Kolada API** in order to collect r
 
 Two packages *httr* and *jsonlite* are utilized for fetching data and converting it to a readable format. Several functions are also defined for extracting, organizing and showing the data. Below, are some sample output of the functions.
 
+## Functions
 
 **Municipality Function**
 
-Takes the municipality name as input and retrieve its *id* and *type*:
+Takes the municipality name as input and retrieve its *id* and *type*. id of each municipality is unique among others:
 
 ```{r}
+library(Lab5)
 Municipality("lund")
 ```
 
 **Municipality_groups Function** 
 
-Shows all available municipalities along with their id and type information.
+Shows all available municipalities along with their id and type information. So, user can have access to 312 available municipalities in Kolada database and their ids and choose on which municipality they want to work and perform required analysis.
 
 ```{r}
 head((Municipality_groups("1281")), 10)
+dim(Municipality_groups("1281"))
 ```
 
 
